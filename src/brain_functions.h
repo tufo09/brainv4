@@ -45,6 +45,10 @@ void read_tof_sensors(uint8_t *distance_values) {
   }
   digitalWrite(SPI1, HIGH);
 }
+// function to check if any button is pressed
+bool abutton_is_pressed() {
+    if (READ_BUTTON_CLOSED(B1)==1||READ_BUTTON_CLOSED(B2)==1||READ_BUTTON_CLOSED(B3)==1) {return true;} else {return false;}
+}
 // test cases
 
 // tof_display_raw
