@@ -9,7 +9,8 @@ void setup() {
   WRITE_I2C_BNO055_INIT();
 }
  
+
+TestCases testCases;
 void loop() {
-  TestCases testCases;
   testCases.tof_display_raw();
 }
