@@ -1,3 +1,5 @@
+#pragma once
+
 // *********************************************
 // ***  KeplerBRAIN V4 Library  V 29.11.2024 ***
 // *********************************************
@@ -484,22 +486,24 @@ TwoWire i2c(PC9, PA8);
 void WRITE_I2C_BNO055_INIT()
 {
  int count_bno055 = 0; 
+ WRITE_LCD_TEXT_CLEAR(1,1,3,"init: bno055");
+ WRITE_LCD_TEXT(1,2,"start init");
   do
   {
-    WRITE_LCD_TEXT_CLEAR(1,2,2,"BNO055 start init");
+    
     count_bno055 ++;
     delay(10);
     i2c.beginTransmission(0x28);
     i2c.write(0x00);
     i2c.endTransmission(false);
     i2c.requestFrom(0x28, 1, true);
-    WRITE_LCD_TEXT_CLEAR(1,2,2,"BNO055 loop "+String(count_bno055));
+    WRITE_LCD_TEXT_CLEAR(1,2,2,"loop "+String(count_bno055));
   } while(i2c.read() != 0xA0);
   i2c.beginTransmission(0x28);
   i2c.write(0x3D);
   i2c.write(0x0C);
   i2c.endTransmission();
-  WRITE_LCD_TEXT_CLEAR(1,2,2,"BNO055 end init");
+  WRITE_LCD_TEXT_CLEAR(1,2,2,"end init");
 }
 
 uint16_t READ_I2C_BNO055_YAW()
