@@ -5,12 +5,11 @@
 
 void setup() {
   KEPLERBRAIN_INIT();
-  WRITE_LCD_CLEAR();
   WRITE_I2C_BNO055_INIT();
+  WRITE_LCD_CLEAR();
 }
  
 
 TestCases testCases;
 void loop() {
-  testCases.tof_display_raw();
 }
