@@ -58,6 +58,8 @@ uint8_t count = 0;
 class TestCases {
     public:
         void tof_display_raw() {
+            static uint8_t distance_values[8];
+            static uint8_t count = 0;
             read_tof_sensors(distance_values);
             WRITE_LCD_TEXT(1, 1, String(distance_values[5])+" "+String(distance_values[4])+" "+String(distance_values[3])+" "+String(distance_values[2]));
             WRITE_LCD_TEXT(1, 2, String(distance_values[6])+" "+String(distance_values[7])+" "+String(distance_values[0])+" "+String(distance_values[1]));
