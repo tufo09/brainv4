@@ -1,7 +1,8 @@
 #include <Arduino.h>
 #include "KeplerBRAIN_V4.h"
+#include <brainV4.h>
 
- 
+
 uint8_t value_1;
 uint8_t value_2;
 uint8_t value_3;
@@ -16,7 +17,7 @@ void setup()
 {
   KEPLERBRAIN_INIT();
   WRITE_LCD_CLEAR();
-  WRITE_LCD_TEXT(1,1,"it works");
+  WRITE_LCD_TEXT(1,1,"it dklsa");
   WRITE_I2C_BNO055_INIT();
 }
  
