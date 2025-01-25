@@ -162,31 +162,6 @@ void WRITE_LCD_TEXT(int x, int y, String text)
   lcd.setCursor(x, y);
   lcd.print(text);
 }
-void WRITE_LCD_TEXT_CLEAR(int x, int y, int choice, String text)
-{
-  if (y<1) y = 1;
-  if (y>2) y = 2;
-  if (x<1) x = 1;
-  if (x>16) x = 16;
-  if (choice<1) choice = 1;
-  if (choice>3) choice = 2;
-  y--;
-  x--;
-  if(choice==1){
-    lcd.setCursor(1,1); 
-    lcd.print("                ");
-  } else if(choice==2){
-    lcd.setCursor(1,2); 
-    lcd.print("                ");
-  } else if(choice==3){
-    lcd.setCursor(1,1); 
-    lcd.print("                "); 
-    lcd.setCursor(1,2); 
-    lcd.print("                ");
-  }
-  lcd.setCursor(x, y);
-  lcd.print(text);
-}
 
 void WRITE_LCD_CLEAR()
 {
@@ -486,7 +461,7 @@ TwoWire i2c(PC9, PA8);
 void WRITE_I2C_BNO055_INIT()
 {
  int count_bno055 = 0; 
- WRITE_LCD_TEXT_CLEAR(1,1,3,"init: bno055");
+ write_lcd_text_clear(1,1,3,"init: bno055");
  WRITE_LCD_TEXT(1,2,"start init");
   do
   {
@@ -497,13 +472,13 @@ void WRITE_I2C_BNO055_INIT()
     i2c.write(0x00);
     i2c.endTransmission(false);
     i2c.requestFrom(0x28, 1, true);
-    WRITE_LCD_TEXT_CLEAR(1,2,2,"loop "+String(count_bno055));
+    write_lcd_text_clear(1,2,2,"loop "+String(count_bno055));
   } while(i2c.read() != 0xA0);
   i2c.beginTransmission(0x28);
   i2c.write(0x3D);
   i2c.write(0x0C);
   i2c.endTransmission();
-  WRITE_LCD_TEXT_CLEAR(1,2,2,"end init");
+  write_lcd_text_clear(1,2,2,"end init");
 }
 
 uint16_t READ_I2C_BNO055_YAW()

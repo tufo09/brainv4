@@ -52,6 +52,25 @@ bool abutton_is_pressed() {
     if (READ_BUTTON_CLOSED(B1)==1||READ_BUTTON_CLOSED(B2)==1||READ_BUTTON_CLOSED(B3)==1) {return true;} else {return false;}
 }
 
+void write_lcd_text_clear(int x, int y, int choice, String text) {
+    if (choice<1) {choice=1;};
+    if (choice>3) {choice=3;};
+
+    switch (choice) {
+        case 1:
+            WRITE_LCD_TEXT(1,1,"                ");
+            WRITE_LCD_TEXT(x,y,text);
+            break;
+        case 2:
+            WRITE_LCD_TEXT(1,2,"                ");
+            WRITE_LCD_TEXT(x,y,text);
+            break;
+        case 3:
+            WRITE_LCD_CLEAR();
+            WRITE_LCD_TEXT(x,y,text);
+            break;
+    }
+}
 
 // test cases
 class TestCases {
