@@ -88,11 +88,16 @@ void write_lcd_text_clear_multiple(int x, int y, int choice, String text) {
 class TestCases {
     public:
         void tof_display_raw() {
-            static uint8_t distance_values[8];
-            static uint8_t count = 0;
+            uint8_t distance_values[8];
             read_tof_sensors(distance_values);
+            static uint8_t count = 0;
             WRITE_LCD_TEXT(1, 1, String(distance_values[5])+" "+String(distance_values[4])+" "+String(distance_values[3])+" "+String(distance_values[2]));
-            WRITE_LCD_TEXT(1, 2, String(distance_values[6])+" "+String(distance_values[7])+" "+String(distance_values[0])+" "+String(distance_values[1]));
+            WRITE_LCD_TEXT(1, 2,String(distance_values[6])+" "+String(distance_values[7])+" "+String(distance_values[0])+" "+String(distance_values[1]));
+            // tof sensors on the roboter
+            //   4 3
+            // 5     2
+            // 6     1
+            //   7 0
             if (count>100) {
                 count = 0;
                 WRITE_LCD_CLEAR();
