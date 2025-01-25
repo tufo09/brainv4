@@ -70,17 +70,29 @@ class TestCases {
         }
 
         void motor_switch() {
-                m_motor_write(0,100);
-                delay(1000);
-                m_motor_write(0,0);
-                m_motor_write(1,100);
-                delay(1000);
-                m_motor_write(1,0);
-                m_motor_write(2,100);
-                delay(1000);
-                m_motor_write(2,0);
-                m_motor_write(3,100);
-                delay(1000);
-                m_motor_write(3,0);
+            m_motor_write(0,100);
+            delay(1000);
+            m_motor_write(0,0);
+            m_motor_write(1,100);
+            delay(1000);
+            m_motor_write(1,0);
+            m_motor_write(2,100);
+            delay(1000);
+            m_motor_write(2,0);
+            m_motor_write(3,100);
+            delay(1000);
+            m_motor_write(3,0);
+        }
+
+        void led_button_test() {
+            if (READ_BUTTON_CLOSED(B1)) {
+                WRITE_LED(L1,1);
+            } else {WRITE_LED(L1,0);}
+            if (READ_BUTTON_CLOSED(B2)) {
+                WRITE_LED(L2,1);
+            } else {WRITE_LED(L2,0);}
+            if (READ_BUTTON_CLOSED(B3)) {
+                WRITE_LED(L3,1);
+            } else {WRITE_LED(L3,0);}
         }
 };
