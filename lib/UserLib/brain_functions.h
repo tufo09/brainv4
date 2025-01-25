@@ -4,12 +4,12 @@
 
 
 // function to turn the motors in the right direction regardless of which direction the wires are connected
-int motor_multiplier_1 = -1;
-int motor_multiplier_2 = -1;
-int motor_multiplier_3 = 1;
-int motor_multiplier_4 = 1;
-
 void m_motor_write(int port, double value) {
+    static int motor_multiplier_1 = -1;
+    static int motor_multiplier_2 = -1;
+    static int motor_multiplier_3 = 1;
+    static int motor_multiplier_4 = 1;
+
     switch (port)
     {
     case 0:
@@ -29,7 +29,7 @@ void m_motor_write(int port, double value) {
 
 
 // function to pull the distance data from the expansion board connected via spi
-void read_tof_sensors(uint8_t *distance_values) {
+void read_tof_sensors(uint8_t* distance_values) {
 
   // read 8 Bytes from TOF Sensorboard BEGIN
   digitalWrite(SPI1, LOW);
@@ -45,16 +45,15 @@ void read_tof_sensors(uint8_t *distance_values) {
   }
   digitalWrite(SPI1, HIGH);
 }
+
+
 // function to check if any button is pressed
 bool abutton_is_pressed() {
     if (READ_BUTTON_CLOSED(B1)==1||READ_BUTTON_CLOSED(B2)==1||READ_BUTTON_CLOSED(B3)==1) {return true;} else {return false;}
 }
+
+
 // test cases
-
-// tof_display_raw
-uint8_t distance_values[8];
-uint8_t count = 0;
-
 class TestCases {
     public:
         void tof_display_raw() {
