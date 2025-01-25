@@ -72,6 +72,18 @@ void write_lcd_text_clear(int x, int y, int choice, String text) {
     }
 }
 
+// function to clear display line every 100th time it is called
+
+void write_lcd_text_clear_multiple(int x, int y, int choice, String text) {
+    static uint mwltc_count;
+    mwltc_count++;
+    if (mwltc_count >= 120) {
+        mwltc_count = 0;
+        write_lcd_text_clear(x, y, choice, text);
+    } else {
+        WRITE_LCD_TEXT(x, y, text);
+    }
+}
 // test cases
 class TestCases {
     public:
