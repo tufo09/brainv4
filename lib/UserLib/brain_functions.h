@@ -106,44 +106,50 @@ void write_lcd_text_clear_multiple(int x, int y, int choice, String text)
 }
 
 // class where all helper, initialising etc. functions go
-class Helper {
-    public:
-        void set_tof_offsets(int8_t* offset_values) {
-            static const int distance_wall = 5;
-            uint8_t distance_values[8];
-            // calibrate left
-            write_lcd_text_clear(1,1,3,"calibration left");
-            do {
-                read_tof_sensors(distance_values);
-                write_lcd_text_clear_multiple(1,2,2,String(distance_values[5])+" "+String(distance_values[6]));
-            } while (READ_BUTTON_PRESSED(B1) != 1);
-            offset_values[5] = (distance_values[5] - distance_wall);
-            offset_values[6] = (distance_values[6] - distance_wall);
-            // calibrate right
-            write_lcd_text_clear(1,1,3,"calibration right");
-            do {
-                read_tof_sensors(distance_values);
-                write_lcd_text_clear_multiple(1,2,2,String(distance_values[2])+" "+String(distance_values[1]));
-            } while (READ_BUTTON_PRESSED(B1) != 1);
-            offset_values[2] = (distance_values[2] - distance_wall);
-            offset_values[1] = (distance_values[1] - distance_wall);
-            // calibrate front
-            write_lcd_text_clear(1,1,3,"calibration front");
-            do {
-                read_tof_sensors(distance_values);
-                write_lcd_text_clear_multiple(1,2,2,String(distance_values[4])+" "+String(distance_values[3]));
-            } while (READ_BUTTON_PRESSED(B1) != 1);
-            offset_values[4] = (distance_values[4] - distance_wall);
-            offset_values[3] = (distance_values[3] - distance_wall);
-            // calibrate back
-            write_lcd_text_clear(1,1,3,"calibration back");
-            do {
-                read_tof_sensors(distance_values);
-                write_lcd_text_clear_multiple(1,2,2,String(distance_values[7])+" "+String(distance_values[0]));
-            } while (READ_BUTTON_PRESSED(B1) != 1);
-            offset_values[7] = (distance_values[7] - distance_wall);
-            offset_values[0] = (distance_values[0] - distance_wall);
-        }
+class Helper
+{
+public:
+    void set_tof_offsets(int8_t *offset_values)
+    {
+        static const int distance_wall = 5;
+        uint8_t distance_values[8];
+        // calibrate left
+        write_lcd_text_clear(1, 1, 3, "calibration left");
+        do
+        {
+            read_tof_sensors(distance_values);
+            write_lcd_text_clear_multiple(1, 2, 2, String(distance_values[5]) + " " + String(distance_values[6]));
+        } while (READ_BUTTON_PRESSED(B1) != 1);
+        offset_values[5] = (distance_values[5] - distance_wall);
+        offset_values[6] = (distance_values[6] - distance_wall);
+        // calibrate right
+        write_lcd_text_clear(1, 1, 3, "calibration right");
+        do
+        {
+            read_tof_sensors(distance_values);
+            write_lcd_text_clear_multiple(1, 2, 2, String(distance_values[2]) + " " + String(distance_values[1]));
+        } while (READ_BUTTON_PRESSED(B1) != 1);
+        offset_values[2] = (distance_values[2] - distance_wall);
+        offset_values[1] = (distance_values[1] - distance_wall);
+        // calibrate front
+        write_lcd_text_clear(1, 1, 3, "calibration front");
+        do
+        {
+            read_tof_sensors(distance_values);
+            write_lcd_text_clear_multiple(1, 2, 2, String(distance_values[4]) + " " + String(distance_values[3]));
+        } while (READ_BUTTON_PRESSED(B1) != 1);
+        offset_values[4] = (distance_values[4] - distance_wall);
+        offset_values[3] = (distance_values[3] - distance_wall);
+        // calibrate back
+        write_lcd_text_clear(1, 1, 3, "calibration back");
+        do
+        {
+            read_tof_sensors(distance_values);
+            write_lcd_text_clear_multiple(1, 2, 2, String(distance_values[7]) + " " + String(distance_values[0]));
+        } while (READ_BUTTON_PRESSED(B1) != 1);
+        offset_values[7] = (distance_values[7] - distance_wall);
+        offset_values[0] = (distance_values[0] - distance_wall);
+    }
 };
 
 // test cases

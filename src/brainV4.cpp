@@ -8,7 +8,6 @@ Helper helper;
 
 int8_t offsets[8];
 
-
 void setup()
 {
   KEPLERBRAIN_INIT();
@@ -16,6 +15,6 @@ void setup()
   WRITE_LCD_CLEAR();
 }
 
-
-void loop() {
+void loop()
+{
 }
