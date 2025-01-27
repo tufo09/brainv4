@@ -3,6 +3,7 @@
 #include <KeplerBRAIN_V4.h>
 
 // function to turn the motors in the right direction regardless of which direction the wires are connected
+// max motor range is from -100 to 100
 void m_motor_write(int port, double value)
 {
     static int motor_multiplier_1 = -1;
