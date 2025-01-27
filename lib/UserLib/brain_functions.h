@@ -68,31 +68,11 @@ bool any_button_is_pressed()
 }
 
 // function to check if a button is pressed
-int a_button_is_pressed(int8_t choice) {
-    switch (choice)
-    {
-    case 0:
-        any_button_is_pressed();
-        return 0;
-    
-    case 1:
-        if (READ_BUTTON_CLOSED(B1) == 1)
-        {
-            return 1;
-        }
-
-    case 2:
-        if (READ_BUTTON_CLOSED(B2) == 1)
-        {
-            return 2;
-        }
-
-    case 3:
-        if (READ_BUTTON_CLOSED(B3) == 1)
-        {
-            return 3;
-        }
-    }
+int a_button_is_pressed() {
+    if (READ_BUTTON_CLOSED(B1) == 1) {return 1;}
+    else if (READ_BUTTON_CLOSED(B2) == 1) {return 2;}
+    else if (READ_BUTTON_CLOSED(B3) == 1) {return 3;}
+    else {return 0;}
 }
 
 void write_lcd_text_clear(int x, int y, int choice, String text)
