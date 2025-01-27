@@ -35,14 +35,26 @@ void drive_parallel(int side)
   switch (side)
   {
   case 0:
+  int8_t ground_speed = 30;
   int8_t speed_left_front;
   int8_t speed_left_back;
+  int8_t last_speed_left_front;
+  int8_t last_speed_left_back;
   uint8_t stop = 3;
+
+  // probably gonna only use the front sensor for now
+  uint8_t front_distance;
+  uint8_t back_distance;
+
+
     // left side
     // tof sensors to use are indexed with 5 and 6 in the array where five is the more forward sensor
     do
     {
-      break;
+      read_tof_sensors(tof_read_arr);
+      front_distance = tof_read_arr[5];
+      back_distance = tof_read_arr[6];
+
     } while (a_button_is_pressed() == 0);
   
     break;
