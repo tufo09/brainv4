@@ -35,11 +35,19 @@ void drive_parallel(int side)
   switch (side)
   {
   case 0:
+  int8_t speed_left_front;
+  int8_t speed_left_back;
+  uint8_t stop = 3;
     // left side
     // tof sensors to use are indexed with 5 and 6 in the array where five is the more forward sensor
+    do
+    {
+      break;
+    } while (a_button_is_pressed() == 0);
+  
     break;
-
-  case 1:
+  int8_t speed_right_front;
+  int8_t speed_right_back;
     // right side
     // tof sensors to use are indexed with 2 and 1 in the array where two is the more foreward sensor
     break;
