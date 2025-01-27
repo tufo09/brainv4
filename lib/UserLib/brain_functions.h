@@ -31,6 +31,12 @@ void m_motor_write(int port, double value)
 void read_tof_sensors(uint8_t *distance_values)
 {
 
+// tof sensors on the roboter
+//   4 3
+// 5     2
+// 6     1
+//   7 0
+
     // read 8 Bytes from TOF Sensorboard BEGIN
     digitalWrite(SPI1, LOW);
     if (spi.transfer(0XFF) == 250)
