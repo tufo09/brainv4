@@ -18,3 +18,8 @@ void setup()
 void loop()
 {
 }
+// tof sensors on the roboter
+//   4 3
+// 5     2
+// 6     1
+//   7 0
