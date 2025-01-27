@@ -55,7 +55,7 @@ void read_tof_sensors(uint8_t *distance_values)
 }
 
 // function to check if any button is pressed
-bool abutton_is_pressed()
+bool any_button_is_pressed()
 {
     if (READ_BUTTON_CLOSED(B1) == 1 || READ_BUTTON_CLOSED(B2) == 1 || READ_BUTTON_CLOSED(B3) == 1)
     {
@@ -64,6 +64,34 @@ bool abutton_is_pressed()
     else
     {
         return false;
+    }
+}
+
+// function to check if a button is pressed
+int a_button_is_pressed(int8_t choice) {
+    switch (choice)
+    {
+    case 0:
+        any_button_is_pressed();
+        return 0;
+    
+    case 1:
+        if (READ_BUTTON_CLOSED(B1) == 1)
+        {
+            return 1;
+        }
+
+    case 2:
+        if (READ_BUTTON_CLOSED(B2) == 1)
+        {
+            return 2;
+        }
+
+    case 3:
+        if (READ_BUTTON_CLOSED(B3) == 1)
+        {
+            return 3;
+        }
     }
 }
 
