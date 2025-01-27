@@ -10,14 +10,21 @@ Helper helper;
 int8_t offsets[8];
 
 
-void setup() {
+TestCases testCases;
+Maze maze;
+Helper helper;
+
+int8_t offsets[8];
+
+
+void setup()
+{
   KEPLERBRAIN_INIT();
   WRITE_I2C_BNO055_INIT();
   WRITE_LCD_CLEAR();
 
   helper.set_tof_offsets(offsets);
 }
- 
 
 
 void loop() {
