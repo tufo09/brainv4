@@ -5,7 +5,6 @@
 // *********************************************
 
 #include "stm32f4xx.h"
-
 // BUTTONS
 
 // value = READ_BUTTON_CLOSED(port)
@@ -461,7 +460,7 @@ TwoWire i2c(PC9, PA8);
 void WRITE_I2C_BNO055_INIT()
 {
  int count_bno055 = 0; 
- write_lcd_text_clear(1,1,3,"init: bno055");
+ WRITE_LCD_TEXT(1,1,"init: bno055");
  WRITE_LCD_TEXT(1,2,"start init");
   do
   {
@@ -472,13 +471,13 @@ void WRITE_I2C_BNO055_INIT()
     i2c.write(0x00);
     i2c.endTransmission(false);
     i2c.requestFrom(0x28, 1, true);
-    write_lcd_text_clear(1,2,2,"loop "+String(count_bno055));
+    WRITE_LCD_TEXT(1,2,"loop "+String(count_bno055));
   } while(i2c.read() != 0xA0);
   i2c.beginTransmission(0x28);
   i2c.write(0x3D);
   i2c.write(0x0C);
   i2c.endTransmission();
-  write_lcd_text_clear(1,2,2,"end init");
+  WRITE_LCD_TEXT(1,2,"end init");
 }
 
 uint16_t READ_I2C_BNO055_YAW()

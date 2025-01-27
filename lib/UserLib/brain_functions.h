@@ -5,10 +5,10 @@
 
 // function to turn the motors in the right direction regardless of which direction the wires are connected
 void m_motor_write(int port, double value) {
-    static int motor_multiplier_1 = -1;
-    static int motor_multiplier_2 = -1;
-    static int motor_multiplier_3 = 1;
-    static int motor_multiplier_4 = 1;
+    static const int motor_multiplier_1 = -1;
+    static const int motor_multiplier_2 = -1;
+    static const int motor_multiplier_3 = 1;
+    static const int motor_multiplier_4 = 1;
 
     switch (port)
     {
@@ -46,12 +46,31 @@ void read_tof_sensors(uint8_t* distance_values) {
   digitalWrite(SPI1, HIGH);
 }
 
+void read_tof_sensors_processed(uint8_t* distance_values, int8_t* offset_values) {
+
+  // read 8 Bytes from TOF Sensorboard BEGIN
+  digitalWrite(SPI1, LOW);
+  if(spi.transfer(0XFF) == 250) { 
+    distance_values[0] = spi.transfer(0XFF)*offset_values[0];
+    distance_values[1] = spi.transfer(0XFF)*offset_values[1];
+    distance_values[2] = spi.transfer(0XFF)*offset_values[2];
+    distance_values[3] = spi.transfer(0XFF)*offset_values[3];
+    distance_values[4] = spi.transfer(0XFF)*offset_values[4];
+    distance_values[5] = spi.transfer(0XFF)*offset_values[5];
+    distance_values[6] = spi.transfer(0XFF)*offset_values[6];
+    distance_values[7] = spi.transfer(0XFF)*offset_values[7];
+  }
+  digitalWrite(SPI1, HIGH);
+}
+
 
 // function to check if any button is pressed
 bool abutton_is_pressed() {
     if (READ_BUTTON_CLOSED(B1)==1||READ_BUTTON_CLOSED(B2)==1||READ_BUTTON_CLOSED(B3)==1) {return true;} else {return false;}
 }
 
+
+// function to wrap around the WRITE_LCD_TEXT function, which makes it possible to clear and write to the lcd display in one function call
 void write_lcd_text_clear(int x, int y, int choice, String text) {
     if (choice<1) {choice=1;};
     if (choice>3) {choice=3;};
@@ -84,6 +103,48 @@ void write_lcd_text_clear_multiple(int x, int y, int choice, String text) {
         WRITE_LCD_TEXT(x, y, text);
     }
 }
+
+// class where all helper, initialising etc. functions go
+class Helper {
+    public:
+        void set_tof_offsets(int8_t* offset_values) {
+            static const int distance_wall = 5;
+            uint8_t distance_values[8];
+            // calibrate left
+            write_lcd_text_clear(1,1,3,"calibration left");
+            do {
+                read_tof_sensors(distance_values);
+                write_lcd_text_clear_multiple(1,2,2,String(distance_values[5])+" "+String(distance_values[6]));
+            } while (READ_BUTTON_PRESSED(B1) != 1);
+            offset_values[5] = (distance_values[5] - distance_wall);
+            offset_values[6] = (distance_values[6] - distance_wall);
+            // calibrate right
+            write_lcd_text_clear(1,1,3,"calibration right");
+            do {
+                read_tof_sensors(distance_values);
+                write_lcd_text_clear_multiple(1,2,2,String(distance_values[2])+" "+String(distance_values[1]));
+            } while (READ_BUTTON_PRESSED(B1) != 1);
+            offset_values[2] = (distance_values[2] - distance_wall);
+            offset_values[1] = (distance_values[1] - distance_wall);
+            // calibrate front
+            write_lcd_text_clear(1,1,3,"calibration front");
+            do {
+                read_tof_sensors(distance_values);
+                write_lcd_text_clear_multiple(1,2,2,String(distance_values[4])+" "+String(distance_values[3]));
+            } while (READ_BUTTON_PRESSED(B1) != 1);
+            offset_values[4] = (distance_values[4] - distance_wall);
+            offset_values[3] = (distance_values[3] - distance_wall);
+            // calibrate back
+            write_lcd_text_clear(1,1,3,"calibration back");
+            do {
+                read_tof_sensors(distance_values);
+                write_lcd_text_clear_multiple(1,2,2,String(distance_values[7])+" "+String(distance_values[0]));
+            } while (READ_BUTTON_PRESSED(B1) != 1);
+            offset_values[7] = (distance_values[7] - distance_wall);
+            offset_values[0] = (distance_values[0] - distance_wall);
+        }
+};
+
 // test cases
 class TestCases {
     public:
@@ -98,6 +159,19 @@ class TestCases {
             // 5     2
             // 6     1
             //   7 0
+            if (count>100) {
+                count = 0;
+                WRITE_LCD_CLEAR();
+            }
+            count ++;
+        }
+
+        void tof_display_processed(int8_t* offset_values) {
+            uint8_t distance_values[8];
+            read_tof_sensors_processed(distance_values, offset_values);
+            static uint8_t count = 0;
+            WRITE_LCD_TEXT(1, 1, String(distance_values[5])+" "+String(distance_values[4])+" "+String(distance_values[3])+" "+String(distance_values[2]));
+            WRITE_LCD_TEXT(1, 2,String(distance_values[6])+" "+String(distance_values[7])+" "+String(distance_values[0])+" "+String(distance_values[1]));
             if (count>100) {
                 count = 0;
                 WRITE_LCD_CLEAR();
@@ -131,4 +205,9 @@ class TestCases {
                 WRITE_LED(L3,1);
             } else {WRITE_LED(L3,0);}
         }
+};
+
+// class where all the main maze solving stuff goes
+class Maze {
+    public:
 };
