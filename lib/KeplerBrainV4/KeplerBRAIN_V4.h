@@ -459,13 +459,9 @@ TwoWire i2c(PC9, PA8);
 
 void WRITE_I2C_BNO055_INIT()
 {
- int count_bno055 = 0; 
- WRITE_LCD_TEXT(1,1,"init: bno055");
  WRITE_LCD_TEXT(1,2,"start init");
   do
   {
-    
-    count_bno055 ++;
     delay(10);
     i2c.beginTransmission(0x28);
     i2c.write(0x00);
