@@ -289,11 +289,3 @@ public:
         }
     }
 };
-
-class Menu
-{
-public:
-    void menu(String *selections)
-    {
-    }
-};
