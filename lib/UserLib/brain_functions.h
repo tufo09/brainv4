@@ -242,6 +242,8 @@ public:
             WRITE_LED(L3, 0);
         }
     }
+
+    void drive_parallel()
     // tof sensors on the roboter
     //   4 3
     // 5     2
@@ -250,7 +252,6 @@ public:
 
     // drive parallel to a wall
     // sides: 0 left; 1 right
-    void drive_parallel()
     {
         uint8_t tof_read_arr[8];
         int8_t ground_speed = 100;
