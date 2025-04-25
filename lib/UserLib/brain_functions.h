@@ -28,6 +28,14 @@ void m_motor_write(int port, double value)
     }
 }
 
+//function to collectively write to all motors at once
+void multi_motor_write(double value1, double value2, double value3, double value4) {
+    m_motor_write(0, value1);
+    m_motor_write(1, value2);
+    m_motor_write(2, value3);
+    m_motor_write(3, value4);
+}
+
 // function to pull the distance data from the expansion board connected via spi
 void read_tof_sensors(uint8_t *distance_values)
 {
