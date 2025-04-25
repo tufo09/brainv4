@@ -198,6 +198,24 @@ public:
 class TestCases
 {
 public:
+    void corner_turn(uint16_t degrees) {
+        uint16_t yaw, pitch, roll;
+        uint16_t oyaw, opitch, oroll;
+        read_imu(&oyaw, &opitch, &oroll);
+        SLEEP(500);
+        read_imu(&oyaw, &opitch, &oroll);
+        uint8_t distance_values[8];
+        read_tof_sensors(distance_values);
+        
+        while (abs(oyaw-90) <= yaw) {
+            read_imu(&yaw, &pitch, &roll);
+            WRITE_LCD_TEXT(1,1, String(oyaw) + " " + String(abs(oyaw-90)));
+            WRITE_LCD_TEXT(1,2, String(yaw));
+            multi_motor_write(90, 90, -90, -90);
+        }
+        multi_motor_write(0,0,0,0);
+    }
+
     void tof_display_raw()
     {
         static uint8_t distance_values[8];
