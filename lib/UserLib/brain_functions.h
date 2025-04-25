@@ -63,9 +63,9 @@ void read_tof_sensors(uint8_t *distance_values)
 }
 
 void read_imu(uint16_t *yaw, uint16_t *pitch, uint16_t *roll) {
-    yaw = READ_I2C_BNO055_YAW();
-    pitch = READ_I2C_BNO055_PITCH();
-    roll = READ_I2C_BNO055_ROLL();
+    *yaw = READ_I2C_BNO055_YAW();
+    *pitch = READ_I2C_BNO055_PITCH();
+    *roll = READ_I2C_BNO055_ROLL();
 }
 
 // function to check if any button is pressed
