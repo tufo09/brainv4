@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include <KeplerBRAIN_V4.h>
 
 // function to turn the motors in the right direction regardless of which direction the wires are connected
@@ -214,6 +215,10 @@ public:
             multi_motor_write(90, 90, -90, -90);
         }
         multi_motor_write(0,0,0,0);
+    }
+
+    void turn(uint degrees) {
+        
     }
 
     void tof_display_raw()
